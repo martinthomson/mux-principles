@@ -1,0 +1,511 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head profile="http://www.w3.org/2006/03/hcard http://dublincore.org/documents/2008/08/04/dc-html/">
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>Principles for Multiplexing of UDP-based Protocols</title>
+
+  
+<style type="text/css">/*<![CDATA[*/
+@viewport {
+  zoom: 1.0;
+  width: extend-to-zoom;
+}
+@-ms-viewport {
+  width: extend-to-zoom;
+  zoom: 1.0;
+}
+
+@media screen and (min-width: 1024px) {
+  ul.toc, #rfc\.toc {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    right: calc(50vw - 525px);
+    width: 300px;
+    z-index: 1;
+  }
+  #rfc\.toc {
+    top: 15px;
+  }
+  ul.toc {
+    top: 80px;
+    overflow: auto;
+  }
+
+  body {
+    padding-right: 350px;
+  }
+}
+
+body {
+  font: 15px "Helvetica Neue",Helvetica,Arial,sans-serif;
+  color: #333;
+  font-size-adjust: 0.5;
+  line-height: 130%;
+  margin: 25px auto;
+  max-width: 724px;
+}
+
+.title, .filename, h1, h2, h3, h4 {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size-adjust: 0.5;
+  font-weight: 500;
+  color: #333;
+  line-height: 100%;
+  margin: 0.8em 0 0.3em;
+}
+.title { font-size: 36px; }
+h1 { font-size: 30px; }
+h2 { font-size: 24px; }
+h3, h4 { font-size: 18px; }
+h1 a[href], h2 a[href], h3 a[href], h4 a[href] {
+  color: #333;
+}
+
+ul.toc li {
+  list-style: none;
+  text-indent: -2.5em;
+  padding-left: 2.5em;
+  padding-bottom: 5px;
+  margin: 0;
+}
+ul.toc ul {
+  margin: 0;
+}
+/* xml2rfc nests ul directly inside ul which messes with the style badly */
+ul.toc, ul.toc>ul, ul.toc ul>ul {
+  margin: 0 0 0 1.5em;
+}
+
+table {
+  margin-left: 0em;
+  border-collapse: collapse;
+}
+th {
+  text-align: left;
+  border-bottom: 2px solid #ddd;
+}
+td {
+  border-top: 1px solid #ddd;
+  vertical-align: top;
+}
+tr:nth-child(2n+1) > td,
+tr:nth-child(2n+1) > th {
+  background-color: #f9f9f9;
+}
+td.reference {
+  max-width: 200px;
+  border-top: none;
+  padding-right: 1em;
+}
+.right {
+  text-align: right;
+}
+
+
+table.header {
+  width: 100%;
+}
+table.header td {
+  border: none;
+  background-color: transparent;
+  color: black;
+}
+.filename {
+  color: rgb(119, 119, 119);
+  font-size: 23px;
+  font-weight: normal;
+  height: auto;
+  line-height: 100%;
+}
+#rfc\.abstract+p {
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 130%;
+}
+
+samp, tt, code, pre {
+  font: 11pt consolas, monospace;
+  font-size-adjust: none;
+}
+pre {
+  background-color: #eee;
+  border: 1px solid #ddd;
+  overflow-x: auto;
+  padding: 5px;
+  margin: 5px;
+}
+.figure {
+  font-style: italic;
+  margin: 0 1.5em;
+}
+
+address {
+  margin: 10px 0 0;
+}
+.vcard {
+  font-style: normal;
+}
+.vcardline {
+  display: block;
+}
+.vcardline .fn {
+  font-weight: bold;
+}
+.vcardline .hidden {
+  display: none;
+}
+
+dl {
+  margin-left: 1em;
+}
+dl.dl-horizontal: {
+  margin-left: 0;
+}
+dl > dt {
+  float: left;
+  margin-right: 1em;
+}
+dl.nohang > dt {
+  float: none;
+}
+dl > dd {
+  margin-bottom: .5em;
+}
+dl.compact > dd {
+  margin-bottom: 0em;
+}
+dl > dd > dl {
+  margin-top: 0.5em;
+  margin-bottom: 0em;
+}
+ul.empty {
+  list-style-type: none;
+}
+ul.empty li {
+  margin-top: .5em;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #eee;
+}
+
+a {
+  text-decoration: none;
+}
+a[href] {
+  color: #2a6496;
+}
+a[href]:hover {
+  background-color: #eee;
+}
+
+ol, ul, li, p {
+  padding: 0;
+  margin: 0.5em 0 0.5em 2em;
+}
+li, p {
+  margin-left: 0;
+}
+address {
+  font-style: normal;
+}
+
+.github-fork-ribbon-wrapper {
+  display: none;
+}
+@media screen and (min-width: 800px) {
+  /* "Fork me on GitHub" CSS ribbon based on
+   * https://github.com/simonwhitaker/github-fork-ribbon-css
+   */
+  .github-fork-ribbon {
+    position: absolute;
+    padding: 2px 0;
+    background-color: #a00;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+    font: 700 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+    pointer-events: auto;
+
+    top: 38px;
+    right: -45px;
+
+    transform: rotate(45deg);
+  }
+
+  .github-fork-ribbon a[href],
+  .github-fork-ribbon a[href]:hover {
+    color: #fff;
+    background-color: transparent;
+    text-decoration: none;
+    text-shadow: 0 -1px rgba(0, 0, 0, 0.5);
+    text-align: center;
+
+    width: 190px;
+    line-height: 18px;
+
+    display: inline-block;
+    padding: 2px 0;
+
+    border: 1.5px dotted #fff;
+    border-color: rgba(255, 255, 255, 0.6);
+  }
+
+  .github-fork-ribbon-wrapper {
+    display: block;
+    width: 130px;
+    height: 130px;
+    position: absolute;
+    overflow: hidden;
+    top: 0; right: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+}
+@media screen and (min-width: 1000px) {
+  .github-fork-ribbon-wrapper {
+    position: fixed;
+  }
+  /*]]>*/</style>
+
+
+  <link href="#rfc.toc" rel="Contents">
+<link href="#rfc.section.1" rel="Chapter" title="1 Introduction">
+<link href="#rfc.section.2" rel="Chapter" title="2 Multiplexing is Almost Always Possible">
+<link href="#rfc.section.3" rel="Chapter" title="3 Multiplexing Considerations">
+<link href="#rfc.section.3.1" rel="Chapter" title="3.1 Alternative Multiplexing Designs">
+<link href="#rfc.section.4" rel="Chapter" title="4 No Expectation of Successful Multiplexing">
+<link href="#rfc.section.5" rel="Chapter" title="5 Security Considerations">
+<link href="#rfc.section.6" rel="Chapter" title="6 IANA Considerations">
+<link href="#rfc.references" rel="Chapter" title="7 Informative References">
+<link href="#rfc.authors" rel="Chapter">
+
+
+  <meta name="generator" content="xml2rfc version 2.8.2 - https://tools.ietf.org/tools/xml2rfc" />
+  <link rel="schema.dct" href="http://purl.org/dc/terms/" />
+
+  <meta name="dct.creator" content="Thomson, M." />
+  <meta name="dct.identifier" content="urn:ietf:id:draft-thomson-mux-principles-latest" />
+  <meta name="dct.issued" scheme="ISO8601" content="2017-11-23" />
+  <meta name="dct.abstract" content="The existence of protocols that rely on multiplexing of different protocols could be used to justify the imposition of constraints on the operation of other protocols.  The existence of a multiplexed protocol does not inherently justify constraints on protocols that participate or might participate in the protocol." />
+  <meta name="description" content="The existence of protocols that rely on multiplexing of different protocols could be used to justify the imposition of constraints on the operation of other protocols.  The existence of a multiplexed protocol does not inherently justify constraints on protocols that participate or might participate in the protocol." />
+
+</head>
+
+<body>
+
+  <table class="header">
+    <tbody>
+    
+    	<tr>
+<td class="left">Network Working Group</td>
+<td class="right">M. Thomson</td>
+</tr>
+<tr>
+<td class="left">Internet-Draft</td>
+<td class="right">Mozilla</td>
+</tr>
+<tr>
+<td class="left">Updates: 7983 (if approved)</td>
+<td class="right">November 23, 2017</td>
+</tr>
+<tr>
+<td class="left">Intended status: Informational</td>
+<td class="right"></td>
+</tr>
+<tr>
+<td class="left">Expires: May 27, 2018</td>
+<td class="right"></td>
+</tr>
+
+    	
+    </tbody>
+  </table>
+
+  <p class="title">Principles for Multiplexing of UDP-based Protocols<br />
+  <span class="filename">draft-thomson-mux-principles-latest</span></p>
+  
+  <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
+<p>The existence of protocols that rely on multiplexing of different protocols could be used to justify the imposition of constraints on the operation of other protocols.  The existence of a multiplexed protocol does not inherently justify constraints on protocols that participate or might participate in the protocol.</p>
+<h1 id="rfc.status"><a href="#rfc.status">Status of This Memo</a></h1>
+<p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
+<p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
+<p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
+<p>This Internet-Draft will expire on May 27, 2018.</p>
+<h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
+<p>Copyright (c) 2017 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
+<p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
+<h1 id="rfc.section.1">
+<a href="#rfc.section.1">1.</a> <a href="#introduction" id="introduction">Introduction</a>
+</h1>
+<p id="rfc.section.1.p.1">The use of multiple protocols that share a 5-tuple is possible in unordered transport like UDP.  Multiplexing in this fashion creates a meta-protocol that is comprised of the set of protocols that are multiplexed.</p>
+<p id="rfc.section.1.p.2">A specific example of such a meta-protocol is documented in RFC 7983 <a href="#RT-MUX" class="xref">[RT-MUX]</a>.  This protocol comprises up to 5 different protocols: STUN <a href="#STUN" class="xref">[STUN]</a>, ZRTP <a href="#ZRTP" class="xref">[ZRTP]</a>, DTLS <a href="#DTLS" class="xref">[DTLS]</a>, TURN channels <a href="#TURN" class="xref">[TURN]</a>, and RTP <a href="#RTP" class="xref">[RTP]</a>.  The meta-protocol that is composed from this set of protocols is commonly deployed for use in real-time communications.  Of particular note is the STUN protocol <a href="#STUN" class="xref">[STUN]</a>, which is specifically designed to be multiplexed with another protocol.</p>
+<p id="rfc.section.1.p.3">The existence of a multiplexed meta-protocol can be used to justify constraints on the definition of new protocols, or the addition of changes to protocols that participate.  These constraints should be considered in the context of the protocol in use.  A protocol design for use outside of a multiplexed context should not be unduly constrained by the limitations of a chosen multiplexing scheme.</p>
+<h1 id="rfc.section.2">
+<a href="#rfc.section.2">2.</a> <a href="#multiplexing-is-almost-always-possible" id="multiplexing-is-almost-always-possible">Multiplexing is Almost Always Possible</a>
+</h1>
+<p id="rfc.section.2.p.1">Any protocol that includes integrity checks can be multiplexed with any other protocol.  A sufficiently strong checksum or cryptographic authentication tag allows arriving datagrams to be rejected by any protocol that the datagram was not intended for with high probability.</p>
+<p id="rfc.section.2.p.2">New protocols often require confidentiality and integrity and so use a solution like TLS <a href="#TLS" class="xref">[TLS]</a>.  Other protocols benefit greatly from being robust against errors in the relatively weak checksum <a href="#CHECKSUM" class="xref">[CHECKSUM]</a> provided by internet protocols <a href="#CHECKSUM-FAIL" class="xref">[CHECKSUM-FAIL]</a>.  Thus, the inclusion of strong integrity checks is beneficial for any internet protocol, which makes the protocol highly likely to be classified by a recipient as intended.</p>
+<p></p>
+
+<dl>
+<dt>Note:</dt>
+<dd style="margin-left: 8">This does not mean that protocols are distinguishable to intermediaries.  Protocols that include use keyed integrity checks will not be identifiable to entities that do not have access to keys.</dd>
+</dl>
+<p id="rfc.section.2.p.4">Relying on an integrity check also probabilistic, meaning that shorter integrity checks increase the chance that a datagram could be incorrectly classified by a recipient.  While the probability of collision is negligible for a protocol that uses an integrity check with 128 bits or more of redundancy, a shorter integrity check could be vulnerable to collisions and mis-classification.</p>
+<p id="rfc.section.2.p.5">As long as no more than one participating protocol lacks an integrity check of sufficient strength, protocols can be demultiplexed with high reliability.  However, this form of demultiplexing can be grossly inefficient, as every datagram needs to be validated once for each potential protocol that is in use.</p>
+<h1 id="rfc.section.3">
+<a href="#rfc.section.3">3.</a> <a href="#multiplexing-considerations" id="multiplexing-considerations">Multiplexing Considerations</a>
+</h1>
+<p id="rfc.section.3.p.1">Practical multiplexing schemes rely on simpler and more direct differences between protocols.  For instance, RFC 7983 <a href="#RT-MUX" class="xref">[RT-MUX]</a> separates protocols based on the value of the first octet.  While this scheme is cheap and effective, it has the drawback of using a limited space of potential values.  Of the 256 possible values for the first octet, RFC 7983 consumes 132 values.  Adding more protocols to the set that can be multiplexed would reduce the available space further.</p>
+<p id="rfc.section.3.p.2">The design in RFC 7983 was initially opportunistic in nature.  The original set of protocols that were selected included only DTLS, SRTP, and STUN.  Since then, compatibility with that scheme has constrained the design of other protocols so that they fit within this scheme.  This is not an indefinitely sustainable posture.</p>
+<p id="rfc.section.3.p.3">The need to multiplex can create unwanted constraints on the designs of protocols, particularly as protocols evolve.  For a protocol that is used exclusively or predominantly in a multiplexed meta-protocol, this does not present a significant burden, but protocols that have uses in other contexts are different.</p>
+<p id="rfc.section.3.p.4">For instance, DTLS 1.3 <a href="#DTLS13" class="xref">[DTLS13]</a> defines a record layout that uses the first octet in a very different fashion to earlier versions; this design is constrained by the need to remain compatible with the scheme in RFC 7983 <a href="#RT-MUX" class="xref">[RT-MUX]</a>.</p>
+<p id="rfc.section.3.p.5">Multiplexing should not be a primary consideration in design of new protocols that might be multiplexed.  Similary, the design of extensions or revisions to protocols should not be constrained by the potential for multiplexing.  Multiplexing considerations might be paid greater attention depending on how likely it is that the protocol will be used together with other protocols.</p>
+<p id="rfc.section.3.p.6">For example, a new version of RTP <a href="#RTP" class="xref">[RTP]</a> might consider setting the version field to 3.  While this space in the multiplexing scheme in <a href="#RT-MUX" class="xref">[RT-MUX]</a> is currently unallocated, changing the RTP version greatly reduces the space available for other protocols.  Because RTP is frequently used in a multiplexed context, changing the RTP header is best avoided.</p>
+<h1 id="rfc.section.3.1">
+<a href="#rfc.section.3.1">3.1.</a> <a href="#alternative-multiplexing-designs" id="alternative-multiplexing-designs">Alternative Multiplexing Designs</a>
+</h1>
+<p id="rfc.section.3.1.p.1">Protocol multiplexing works most efficiently when the protocol in use for any given packet can be identified using only the contents of the packet.  Stateful multiplexing - where multiplexing rules change based on protocol state - is possible, but is best avoided.</p>
+<p id="rfc.section.3.1.p.2">A protocol that intends to multiplex several protocols can avoid this sort of pressure by adding an explicit multiplexing protocol layer.  The simplest multiplexing protocol is a shim of a small number of octets that is added to the start or end of every datagram.  The value of these octets is then used to identify the protocol.</p>
+<p id="rfc.section.3.1.p.3">For a scheme like that in <a href="#RT-MUX" class="xref">[RT-MUX]</a>, it is possible to use a shim for only some protocols, whether other protocols are multiplexed based on their inherent observable properties.</p>
+<p id="rfc.section.3.1.p.4">Expanding the size of datagrams can have implications for protocol operation.  Trivially, it reduces the space in the path maximum transfer unit (PMTU) <a href="#PMTUv4" class="xref">[PMTUv4]</a>, <a href="#PMTUv6" class="xref">[PMTUv6]</a> available to the multiplexed meta-protocol.</p>
+<p id="rfc.section.3.1.p.5">More substantially, the addition of octets to a protocol datagram - especially at the start - can also mean that the apparent format of datagrams changes.  If a multiplexed meta-protocol adds octets to the start of payloads, this reduces the degree to which the multiplexed meta-protocol can be identified correctly.  Some middleboxes have been shown to observe and discriminate based on the content of flows, even when large parts of a flow is encrypted and therefore inaccessible to the middlebox.  Octets added to the start of a datagram could cause middleboxes to apply different treatment to a protocol when it is multiplexed than when it is not.</p>
+<h1 id="rfc.section.4">
+<a href="#rfc.section.4">4.</a> <a href="#no-expectation-of-successful-multiplexing" id="no-expectation-of-successful-multiplexing">No Expectation of Successful Multiplexing</a>
+</h1>
+<p id="rfc.section.4.p.1">A multiplexing scheme that relies on certain properties of a protocol cannot expect those properties to remain fixed as that protocol changes.</p>
+<p id="rfc.section.4.p.2">It&#8217;s possible that the designers of a protocol will explicitly guarantee that certain properties won&#8217;t change over time (TODO: cite quic-invariants), in which case a multiplexing scheme could be designed based on those guarantees.</p>
+<p id="rfc.section.4.p.3">Choosing a multiplexing scheme that relies on properties of a protocol remaining constant can either impose unwanted constraints on the design of a protocol that is selected for multiplexing, or it can cause some or all features of that protocol to be unusable in the multiplexed context when that protocol changes.</p>
+<h1 id="rfc.section.5">
+<a href="#rfc.section.5">5.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>
+</h1>
+<p id="rfc.section.5.p.1">The ability to use new protocol features can have a material impact on security if access to updated or added security-related features is prevented by an incompatibility with a chosen multiplexing scheme.</p>
+<h1 id="rfc.section.6">
+<a href="#rfc.section.6">6.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
+</h1>
+<p id="rfc.section.6.p.1">This document has no IANA actions.</p>
+<h1 id="rfc.references">
+<a href="#rfc.references">7.</a> Informative References</h1>
+<table><tbody>
+<tr>
+<td class="reference"><b id="CHECKSUM">[CHECKSUM]</b></td>
+<td class="top">
+<a>Braden, R.</a>, <a>Borman, D.</a> and <a>C. Partridge</a>, "<a href="https://tools.ietf.org/html/rfc1071">Computing the Internet checksum</a>", RFC 1071, DOI 10.17487/RFC1071, September 1988.</td>
+</tr>
+<tr>
+<td class="reference"><b id="CHECKSUM-FAIL">[CHECKSUM-FAIL]</b></td>
+<td class="top">
+<a>Stone, J.</a> and <a>C. Partridge</a>, "<a>When the CRC and TCP checksum disagree</a>", Proceedings of the conference on Applications, Technologies, Architectures, and Protocols for Computer Communication - SIGCOMM '00, DOI 10.1145/347059.347561, 2000.</td>
+</tr>
+<tr>
+<td class="reference"><b id="DTLS">[DTLS]</b></td>
+<td class="top">
+<a>Rescorla, E.</a> and <a>N. Modadugu</a>, "<a href="https://tools.ietf.org/html/rfc6347">Datagram Transport Layer Security Version 1.2</a>", RFC 6347, DOI 10.17487/RFC6347, January 2012.</td>
+</tr>
+<tr>
+<td class="reference"><b id="DTLS13">[DTLS13]</b></td>
+<td class="top">
+<a>Rescorla, E.</a>, <a>Tschofenig, H.</a> and <a>N. Modadugu</a>, "<a href="https://tools.ietf.org/html/draft-ietf-tls-dtls13-02">The Datagram Transport Layer Security (DTLS) Protocol Version 1.3</a>", Internet-Draft draft-ietf-tls-dtls13-02, October 2017.</td>
+</tr>
+<tr>
+<td class="reference"><b id="PMTUv4">[PMTUv4]</b></td>
+<td class="top">
+<a>Mogul, J.</a> and <a>S. Deering</a>, "<a href="https://tools.ietf.org/html/rfc1191">Path MTU discovery</a>", RFC 1191, DOI 10.17487/RFC1191, November 1990.</td>
+</tr>
+<tr>
+<td class="reference"><b id="PMTUv6">[PMTUv6]</b></td>
+<td class="top">
+<a>McCann, J.</a>, <a>Deering, S.</a>, <a>Mogul, J.</a> and <a>R. Hinden</a>, "<a href="https://tools.ietf.org/html/rfc8201">Path MTU Discovery for IP version 6</a>", STD 87, RFC 8201, DOI 10.17487/RFC8201, July 2017.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RT-MUX">[RT-MUX]</b></td>
+<td class="top">
+<a>Petit-Huguenin, M.</a> and <a>G. Salgueiro</a>, "<a href="https://tools.ietf.org/html/rfc7983">Multiplexing Scheme Updates for Secure Real-time Transport Protocol (SRTP) Extension for Datagram Transport Layer Security (DTLS)</a>", RFC 7983, DOI 10.17487/RFC7983, September 2016.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RTP">[RTP]</b></td>
+<td class="top">
+<a>Schulzrinne, H.</a>, <a>Casner, S.</a>, <a>Frederick, R.</a> and <a>V. Jacobson</a>, "<a href="https://tools.ietf.org/html/rfc3550">RTP: A Transport Protocol for Real-Time Applications</a>", STD 64, RFC 3550, DOI 10.17487/RFC3550, July 2003.</td>
+</tr>
+<tr>
+<td class="reference"><b id="STUN">[STUN]</b></td>
+<td class="top">
+<a>Rosenberg, J.</a>, <a>Mahy, R.</a>, <a>Matthews, P.</a> and <a>D. Wing</a>, "<a href="https://tools.ietf.org/html/rfc5389">Session Traversal Utilities for NAT (STUN)</a>", RFC 5389, DOI 10.17487/RFC5389, October 2008.</td>
+</tr>
+<tr>
+<td class="reference"><b id="TLS">[TLS]</b></td>
+<td class="top">
+<a>Dierks, T.</a> and <a>E. Rescorla</a>, "<a href="https://tools.ietf.org/html/rfc5246">The Transport Layer Security (TLS) Protocol Version 1.2</a>", RFC 5246, DOI 10.17487/RFC5246, August 2008.</td>
+</tr>
+<tr>
+<td class="reference"><b id="TURN">[TURN]</b></td>
+<td class="top">
+<a>Mahy, R.</a>, <a>Matthews, P.</a> and <a>J. Rosenberg</a>, "<a href="https://tools.ietf.org/html/rfc5766">Traversal Using Relays around NAT (TURN): Relay Extensions to Session Traversal Utilities for NAT (STUN)</a>", RFC 5766, DOI 10.17487/RFC5766, April 2010.</td>
+</tr>
+<tr>
+<td class="reference"><b id="ZRTP">[ZRTP]</b></td>
+<td class="top">
+<a>Zimmermann, P.</a>, <a>Johnston, A.</a> and <a>J. Callas</a>, "<a href="https://tools.ietf.org/html/rfc6189">ZRTP: Media Path Key Agreement for Unicast Secure RTP</a>", RFC 6189, DOI 10.17487/RFC6189, April 2011.</td>
+</tr>
+</tbody></table>
+<h1 id="rfc.authors"><a href="#rfc.authors">Author's Address</a></h1>
+<div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Martin Thomson</span> 
+	  <span class="n hidden">
+		<span class="family-name">Thomson</span>
+	  </span>
+	</span>
+	<span class="org vcardline">Mozilla</span>
+	<span class="adr">
+	  
+	  <span class="vcardline">
+		<span class="locality"></span> 
+		<span class="region"></span>
+		<span class="code"></span>
+	  </span>
+	  <span class="country-name vcardline"></span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:martin.thomson@gmail.com">martin.thomson@gmail.com</a></span>
+
+  </address>
+</div>
+  
+  <hr class="noprint" />
+  <h1 class="np" id="rfc.toc"><a href="#rfc.toc">Table of Contents</a></h1>
+  <ul class="toc">
+
+  	<li>1.   <a href="#rfc.section.1">Introduction</a>
+</li>
+<li>2.   <a href="#rfc.section.2">Multiplexing is Almost Always Possible</a>
+</li>
+<li>3.   <a href="#rfc.section.3">Multiplexing Considerations</a>
+</li>
+<ul><li>3.1.   <a href="#rfc.section.3.1">Alternative Multiplexing Designs</a>
+</li>
+</ul><li>4.   <a href="#rfc.section.4">No Expectation of Successful Multiplexing</a>
+</li>
+<li>5.   <a href="#rfc.section.5">Security Considerations</a>
+</li>
+<li>6.   <a href="#rfc.section.6">IANA Considerations</a>
+</li>
+<li>7.   <a href="#rfc.references">Informative References</a>
+</li>
+<li><a href="#rfc.authors">Author's Address</a>
+</li>
+
+
+  </ul>
+
+  
+
+  <div class="github-fork-ribbon-wrapper"><div class="github-fork-ribbon"><a href="https://github.com/martinthomson/mux-principles">Fork me on GitHub</a></div></div>
+</body>
+</html>
