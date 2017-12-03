@@ -4,9 +4,9 @@
 
 Network Working Group                                         M. Thomson
 Internet-Draft                                                   Mozilla
-Updates: 7983 (if approved)                            November 23, 2017
+Updates: 7983 (if approved)                            December 03, 2017
 Intended status: Informational
-Expires: May 27, 2018
+Expires: June 6, 2018
 
 
            Principles for Multiplexing of UDP-based Protocols
@@ -35,7 +35,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on May 27, 2018.
+   This Internet-Draft will expire on June 6, 2018.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Thomson                   Expires May 27, 2018                  [Page 1]
+Thomson                   Expires June 6, 2018                  [Page 1]
 
-Internet-Draft         UDP Multiplexing Principles         November 2017
+Internet-Draft         UDP Multiplexing Principles         December 2017
 
 
    the Trust Legal Provisions and are provided without warranty as
@@ -109,9 +109,9 @@ Internet-Draft         UDP Multiplexing Principles         November 2017
 
 
 
-Thomson                   Expires May 27, 2018                  [Page 2]
+Thomson                   Expires June 6, 2018                  [Page 2]
 
-Internet-Draft         UDP Multiplexing Principles         November 2017
+Internet-Draft         UDP Multiplexing Principles         December 2017
 
 
    incorrectly classified by a recipient.  While the probability of
@@ -165,9 +165,9 @@ Internet-Draft         UDP Multiplexing Principles         November 2017
 
 
 
-Thomson                   Expires May 27, 2018                  [Page 3]
+Thomson                   Expires June 6, 2018                  [Page 3]
 
-Internet-Draft         UDP Multiplexing Principles         November 2017
+Internet-Draft         UDP Multiplexing Principles         December 2017
 
 
    [RT-MUX] is currently unallocated, changing the RTP version greatly
@@ -215,15 +215,15 @@ Internet-Draft         UDP Multiplexing Principles         November 2017
    changes.
 
    It's possible that the designers of a protocol will explicitly
-   guarantee that certain properties won't change over time (TODO: cite
-   quic-invariants), in which case a multiplexing scheme could be
-   designed based on those guarantees.
+   guarantee that certain properties won't change over time, such as the
+   invariants defined in [QUIC-INVARIANTS], in which case a multiplexing
+   scheme could be designed based on those guarantees.
 
 
 
-Thomson                   Expires May 27, 2018                  [Page 4]
+Thomson                   Expires June 6, 2018                  [Page 4]
 
-Internet-Draft         UDP Multiplexing Principles         November 2017
+Internet-Draft         UDP Multiplexing Principles         December 2017
 
 
    Choosing a multiplexing scheme that relies on properties of a
@@ -277,10 +277,15 @@ Internet-Draft         UDP Multiplexing Principles         November 2017
 
 
 
-Thomson                   Expires May 27, 2018                  [Page 5]
+Thomson                   Expires June 6, 2018                  [Page 5]
 
-Internet-Draft         UDP Multiplexing Principles         November 2017
+Internet-Draft         UDP Multiplexing Principles         December 2017
 
+
+   [QUIC-INVARIANTS]
+              Thomson, M., "Version-Independent Properties of QUIC",
+              draft-thomson-quic-invariants-00 (work in progress),
+              November 2017.
 
    [RT-MUX]   Petit-Huguenin, M. and G. Salgueiro, "Multiplexing Scheme
               Updates for Secure Real-time Transport Protocol (SRTP)
@@ -328,9 +333,4 @@ Author's Address
 
 
 
-
-
-
-
-
-Thomson                   Expires May 27, 2018                  [Page 6]
+Thomson                   Expires June 6, 2018                  [Page 6]
