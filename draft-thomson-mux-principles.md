@@ -165,8 +165,9 @@ A multiplexing scheme that relies on certain properties of a protocol cannot
 expect those properties to remain fixed as that protocol changes.
 
 It's possible that the designers of a protocol will explicitly guarantee that
-certain properties won't change over time (TODO: cite quic-invariants), in which
-case a multiplexing scheme could be designed based on those guarantees.
+certain properties won't change over time, such as the invariants defined in
+{{?QUIC-INVARIANTS=I-D.thomson-quic-invariants}}, in which case a multiplexing
+scheme could be designed based on those guarantees.
 
 Choosing a multiplexing scheme that relies on properties of a protocol remaining
 constant can either impose unwanted constraints on the design of a protocol that
