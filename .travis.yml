@@ -13,13 +13,11 @@ before_install:
   - docker pull martinthomson/i-d-template
 
 script:
-  - make lib
-  - docker run -d -v "$PWD:$DRAFT_DIR" martinthomson/i-d-template sleep 300 >"$CONTAINER"
+  - docker run -d -v "$PWD:$DRAFT_DIR:rw" martinthomson/i-d-template sleep 300 >"$CONTAINER"
   - docker exec -w "$DRAFT_DIR" $(cat "$CONTAINER") make 'CLONE_ARGS=--reference ~/git-reference'
-  - if [ "${TRAVIS_TAG#draft-}" == "${TRAVIS_TAG}" ]; then
-      docker exec -w "$DRAFT_DIR" $(cat "$CONTAINER") make gh-pages;
-    fi
-  - docker exec -w "$DRAFT_DIR" $(cat "$CONTAINER") make issues
+  - [ "${TRAVIS_TAG#draft-}" == "${TRAVIS_TAG}" ] &&
+      docker exec -w "$DRAFT_DIR" $(cat "$CONTAINER") make gh-pages
+  - [ -n "$GH_TOKEN" ] && docker exec -w "$DRAFT_DIR" $(cat "$CONTAINER") make issues
   - docker kill $(cat "$CONTAINER") && rm "$CONTAINER"
 
 after_failure:
@@ -27,7 +25,7 @@ after_failure:
 
 deploy:
   provider: script
-  script: docker run -d -v "$PWD:$DRAFT_DIR" -w "$DRAFT_DIR" martinthomson/i-d-template make upload
+  script: docker run -d -v "$PWD:$DRAFT_DIR:rw" -w "$DRAFT_DIR" martinthomson/i-d-template make upload
   skip_cleanup: true
   on:
     tags: true
