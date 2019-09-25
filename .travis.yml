@@ -19,6 +19,7 @@ script:
   - docker exec -w "$DRAFT_DIR" -e CI=true
       -e TRAVIS_REPO_SLUG -e TRAVIS_BRANCH -e TRAVIS_TAG -e TRAVIS_PULL_REQUEST
       idci make CLONE_ARGS='--reference /home/idci/git-reference'
+  - docker exec idci ls -l /home/idci/draft/lib
   - if [ "${TRAVIS_TAG#draft-}" == "${TRAVIS_TAG}" ]; then
     docker exec -w "$DRAFT_DIR" -e CI=true -e GH_TOKEN
       -e TRAVIS_REPO_SLUG -e TRAVIS_BRANCH -e TRAVIS_TAG -e TRAVIS_PULL_REQUEST
