@@ -10,15 +10,15 @@ before_install:
   - docker pull martinthomson/i-d-template
 
 script:
-  - docker run -d -v "$PWD:$DRAFT_DIR:rw" --name idci martinthomson/i-d-template sleep 300
+  - docker run -d -v "$PWD:$DRAFT_DIR" --name idci martinthomson/i-d-template sleep 300
   - docker exec -w "$DRAFT_DIR" idci make 'CLONE_ARGS=--reference ~/git-reference'
   - if [ "${TRAVIS_TAG#draft-}" == "${TRAVIS_TAG}" ]; then docker exec -w "$DRAFT_DIR" idci make gh-pages; fi
   - if [ -n "$GH_TOKEN" ]; then docker exec -w "$DRAFT_DIR" idci make issues; fi
-  - docker container kill idci
+  - docker container rm -f idci
 
 deploy:
   provider: script
-  script: docker run -it -v "$PWD:$DRAFT_DIR:rw" -w "$DRAFT_DIR" martinthomson/i-d-template make upload
+  script: docker run -it -v "$PWD:$DRAFT_DIR" -w "$DRAFT_DIR" martinthomson/i-d-template make upload
   skip_cleanup: true
   on:
     tags: true
