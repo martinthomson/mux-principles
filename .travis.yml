@@ -1,31 +1,32 @@
-language: python
 sudo: false
-dist: trusty
+dist: xenial
 
-addons:
-  apt:
-    packages:
-     - python-pip
-     - xsltproc
+services:
+  - docker
 
 env:
-  global:
-   - GOPATH="${TRAVIS_BUILD_DIR}/.go_workspace"
-   - mmark_src=github.com/miekg/mmark/mmark
-   - mmark=./mmark
+  DRAFT_DIR: /home/idci/draft
+  CONTAINER: /tmp/docker.container
 
-install:
- - pip install xml2rfc
- - if head -1 -q *.md | grep '^\-\-\-' >/dev/null 2>&1; then gem install --no-doc kramdown-rfc2629; fi
- - if head -1 -q *.md | grep '^%%%' >/dev/null 2>&1; then go get "$mmark_src" && go build "$mmark_src"; fi
+before_install:
+  - docker --version
+  - docker pull martinthomson/i-d-template
 
 script:
- - make
- - make ghpages || make ghpages
+  - docker run -d -v "$PWD:$DRAFT_DIR" martinthomson/i-d-template sleep 300 >"$CONTAINER"
+  - docker exec $(cat "$CONTAINER") -w "$DRAFT_DIR" make 'CLONE_ARGS=--reference ~/git-reference'
+  - if [ "${TRAVIS_TAG#draft-}" == "${TRAVIS_TAG}" ]; then
+      docker exec $(cat "$CONTAINER") -w "$DRAFT_DIR" make gh-pages
+    fi
+  - docker exec $(cat "$CONTAINER") -w "$DRAFT_DIR" make issues
+  - docker kill $(cat "$CONTAINER") && rm "$CONTAINER"
+
+after_failure:
+  - docker kill $(cat "$CONTAINER") && rm "$CONTAINER"
 
 deploy:
   provider: script
-  script: make upload
+  script: docker run -d -v "$PWD:$DRAFT_DIR" -w "$DRAFT_DIR" make upload
   skip_cleanup: true
   on:
     tags: true
