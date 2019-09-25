@@ -14,13 +14,12 @@ before_install:
 script:
   - docker run -d -v "$PWD:$DRAFT_DIR:rw" --name idci martinthomson/i-d-template sleep 300
   - docker exec -w "$DRAFT_DIR" idci make 'CLONE_ARGS=--reference ~/git-reference'
-  - [ "${TRAVIS_TAG#draft-}" == "${TRAVIS_TAG}" ] &&
-      docker exec -w "$DRAFT_DIR" idci make gh-pages
-  - [ -n "$GH_TOKEN" ] && docker exec -w "$DRAFT_DIR" $(cat "$CONTAINER") make issues
-  - docker container stop idci && docker container rm idci
+  - [ "${TRAVIS_TAG#draft-}" == "${TRAVIS_TAG}" ] && docker exec -w "$DRAFT_DIR" idci make gh-pages
+  - [ -n "$GH_TOKEN" ] && docker exec -w "$DRAFT_DIR" idci make issues
+  - docker container stop idci
 
 after_failure:
-  - docker container stop idci && docker container rm idci
+  - docker container stop idci
 
 deploy:
   provider: script
