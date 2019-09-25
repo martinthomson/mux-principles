@@ -13,7 +13,7 @@ before_install:
   - docker pull martinthomson/i-d-template
 
 script:
-  - docker run -d -v "$PWD:/tmp/draft" --tmpfs "$DRAFT_DIR" --name idci
+  - docker run -d -v "$PWD:/tmp/draft" --tmpfs "$DRAFT_DIR:rw,exec" --name idci
       martinthomson/i-d-template sleep 300
   - docker exec idci cp -rn /tmp/draft /home/idci
   - docker exec -w "$DRAFT_DIR" -e CI=true
