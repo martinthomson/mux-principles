@@ -6,26 +6,25 @@ services:
 
 env:
   DRAFT_DIR: /home/idci/draft
-  CONTAINER: /tmp/docker.container
 
 before_install:
   - docker --version
   - docker pull martinthomson/i-d-template
 
 script:
-  - docker run -d -v "$PWD:$DRAFT_DIR:rw" martinthomson/i-d-template sleep 300 >"$CONTAINER"
-  - docker exec -w "$DRAFT_DIR" $(cat "$CONTAINER") make 'CLONE_ARGS=--reference ~/git-reference'
+  - docker run -d -v "$PWD:$DRAFT_DIR:rw" --name idci martinthomson/i-d-template sleep 300
+  - docker exec -w "$DRAFT_DIR" idci make 'CLONE_ARGS=--reference ~/git-reference'
   - [ "${TRAVIS_TAG#draft-}" == "${TRAVIS_TAG}" ] &&
-      docker exec -w "$DRAFT_DIR" $(cat "$CONTAINER") make gh-pages
+      docker exec -w "$DRAFT_DIR" idci make gh-pages
   - [ -n "$GH_TOKEN" ] && docker exec -w "$DRAFT_DIR" $(cat "$CONTAINER") make issues
-  - docker kill $(cat "$CONTAINER") && rm "$CONTAINER"
+  - docker container stop idci && docker container rm idci
 
 after_failure:
-  - docker kill $(cat "$CONTAINER") && rm "$CONTAINER"
+  - docker container stop idci && docker container rm idci
 
 deploy:
   provider: script
-  script: docker run -d -v "$PWD:$DRAFT_DIR:rw" -w "$DRAFT_DIR" martinthomson/i-d-template make upload
+  script: docker run -it -v "$PWD:$DRAFT_DIR:rw" -w "$DRAFT_DIR" martinthomson/i-d-template make upload
   skip_cleanup: true
   on:
     tags: true
