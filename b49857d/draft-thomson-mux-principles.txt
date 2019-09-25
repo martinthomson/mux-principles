@@ -4,9 +4,9 @@
 
 Network Working Group                                         M. Thomson
 Internet-Draft                                                   Mozilla
-Updates: 7983 (if approved)                            December 03, 2017
+Updates: 7983 (if approved)                           September 25, 2019
 Intended status: Informational
-Expires: June 6, 2018
+Expires: March 28, 2020
 
 
            Principles for Multiplexing of UDP-based Protocols
@@ -35,11 +35,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 6, 2018.
+   This Internet-Draft will expire on March 28, 2020.
 
 Copyright Notice
 
-   Copyright (c) 2017 IETF Trust and the persons identified as the
+   Copyright (c) 2019 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Thomson                   Expires June 6, 2018                  [Page 1]
+Thomson                  Expires March 28, 2020                 [Page 1]
 
-Internet-Draft         UDP Multiplexing Principles         December 2017
+Internet-Draft         UDP Multiplexing Principles        September 2019
 
 
    the Trust Legal Provisions and are provided without warranty as
@@ -109,9 +109,9 @@ Internet-Draft         UDP Multiplexing Principles         December 2017
 
 
 
-Thomson                   Expires June 6, 2018                  [Page 2]
+Thomson                  Expires March 28, 2020                 [Page 2]
 
-Internet-Draft         UDP Multiplexing Principles         December 2017
+Internet-Draft         UDP Multiplexing Principles        September 2019
 
 
    incorrectly classified by a recipient.  While the probability of
@@ -165,9 +165,9 @@ Internet-Draft         UDP Multiplexing Principles         December 2017
 
 
 
-Thomson                   Expires June 6, 2018                  [Page 3]
+Thomson                  Expires March 28, 2020                 [Page 3]
 
-Internet-Draft         UDP Multiplexing Principles         December 2017
+Internet-Draft         UDP Multiplexing Principles        September 2019
 
 
    [RT-MUX] is currently unallocated, changing the RTP version greatly
@@ -221,9 +221,9 @@ Internet-Draft         UDP Multiplexing Principles         December 2017
 
 
 
-Thomson                   Expires June 6, 2018                  [Page 4]
+Thomson                  Expires March 28, 2020                 [Page 4]
 
-Internet-Draft         UDP Multiplexing Principles         December 2017
+Internet-Draft         UDP Multiplexing Principles        September 2019
 
 
    Choosing a multiplexing scheme that relies on properties of a
@@ -262,8 +262,8 @@ Internet-Draft         UDP Multiplexing Principles         December 2017
 
    [DTLS13]   Rescorla, E., Tschofenig, H., and N. Modadugu, "The
               Datagram Transport Layer Security (DTLS) Protocol Version
-              1.3", draft-ietf-tls-dtls13-02 (work in progress), October
-              2017.
+              1.3", draft-ietf-tls-dtls13-32 (work in progress), July
+              2019.
 
    [PMTUv4]   Mogul, J. and S. Deering, "Path MTU discovery", RFC 1191,
               DOI 10.17487/RFC1191, November 1990,
@@ -277,9 +277,9 @@ Internet-Draft         UDP Multiplexing Principles         December 2017
 
 
 
-Thomson                   Expires June 6, 2018                  [Page 5]
+Thomson                  Expires March 28, 2020                 [Page 5]
 
-Internet-Draft         UDP Multiplexing Principles         December 2017
+Internet-Draft         UDP Multiplexing Principles        September 2019
 
 
    [QUIC-INVARIANTS]
@@ -333,4 +333,4 @@ Author's Address
 
 
 
-Thomson                   Expires June 6, 2018                  [Page 6]
+Thomson                  Expires March 28, 2020                 [Page 6]
