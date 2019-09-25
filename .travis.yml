@@ -1,6 +1,4 @@
-sudo: false
-dist: xenial
-
+sudo: required
 services:
   - docker
 
@@ -16,10 +14,7 @@ script:
   - docker exec -w "$DRAFT_DIR" idci make 'CLONE_ARGS=--reference ~/git-reference'
   - if [ "${TRAVIS_TAG#draft-}" == "${TRAVIS_TAG}" ]; then docker exec -w "$DRAFT_DIR" idci make gh-pages; fi
   - if [ -n "$GH_TOKEN" ]; then docker exec -w "$DRAFT_DIR" idci make issues; fi
-  - docker container stop idci
-
-after_failure:
-  - docker container stop idci
+  - docker container kill idci
 
 deploy:
   provider: script
